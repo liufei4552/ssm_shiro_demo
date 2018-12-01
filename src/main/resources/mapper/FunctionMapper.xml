@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiro.dao.FunctionMapper">
+    <!--根据用户名查询所拥有的权限-->
+    <select id="selectFunctionByUsername" resultType="com.shiro.bean.Function">
+        SELECT
+        DISTINCT f.*
+        FROM
+        `user` u,
+        role r,
+        `function` f,
+        user_role ur,
+        role_function rf
+        WHERE
+        u.id = ur.u_id
+        AND r.id = ur.r_id
+        AND r.id = rf.r_id
+        AND f.id = rf.f_id
+        AND u.username=#{0}
+    </select>
+</mapper>

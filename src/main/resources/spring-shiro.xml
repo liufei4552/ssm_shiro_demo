@@ -5,6 +5,9 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://www.springframework.org/schema/cache
+		http://www.springframework.org/schema/cache/spring-cache.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -18,13 +21,6 @@
                 /druid/*=anon
                 /index/*=anon
                 /login/*=anon
-                <!--/toLogin=anon--> <!--表示都可以访问-->
-                /error=authc
-                /test=anon
-                /login=anon
-                /home=perms[home] <!--perms表示需要该权限才能访问的页面-->
-                /admin=roles["admin"] <!-- roles["admin,user"] 只有拥有admin角色的用户才可访问，同时需要拥有多个角色的话，用引号引起来，中间用逗号隔开-->
-                <!--/admin=anon-->
                 /**=authc <!--authc表示需要认证才能访问的页面-->
             </value>
         </property>
@@ -32,6 +28,8 @@
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="MyRealm"/>
+        <!--缓存-->
+        <property name="cacheManager" ref="shiroCacheManager" />
     </bean>
 
     <!-- 自定义Realm -->
@@ -48,5 +46,19 @@
         <property name="hashIterations" value="1024"></property>
         <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
-
+    <!-- 缓存配置  -->
+    <bean id="ehCacheManager"
+          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:shiro-ehcache.xml" />
+    </bean>
+    <!-- spring 封装ehcache缓存管理器  -->
+    <bean id="springCacheManager"
+          class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehCacheManager" />
+    </bean>
+    <!-- shiro封装cacheManager -->
+    <bean id="shiroCacheManager"
+          class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManager" />
+    </bean>
 </beans>

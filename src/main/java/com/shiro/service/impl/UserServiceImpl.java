@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ProjectName: ssm_shiro_demo
@@ -26,5 +27,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User selectUserByUsername(String username) {
 		return dao.selectUserByUsername(username);
+	}
+
+	@Override
+	public List<User> selectAllUser() {
+		return dao.selectAllUser();
 	}
 }

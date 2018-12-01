@@ -136,4 +136,9 @@ public class MyRealm extends AuthorizingRealm {
 
 		return info;
 	}
+	// 清除缓存
+	public void clearCached() {
+		PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+		super.clearCache(principals);
+	}
 }

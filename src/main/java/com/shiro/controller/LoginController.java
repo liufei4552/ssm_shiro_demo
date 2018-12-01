@@ -40,7 +40,7 @@ public class LoginController {
 		user.setPassword(password);
 		UsernamePasswordToken token = new UsernamePasswordToken(
 				user.getUsername(), user.getPassword());
-		token.setRememberMe(true);
+		//token.setRememberMe(true);
 
 		// shiro登陆验证
 		try {
@@ -59,6 +59,6 @@ public class LoginController {
 			ex.printStackTrace();
 			return "error";
 		}
-		return "success";
+		return "index";
 	}
 }

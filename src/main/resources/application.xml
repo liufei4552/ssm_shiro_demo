@@ -70,6 +70,12 @@
             </list>
         </property>
         <property name="typeAliasesPackage" value="com.shiro.bean"/>
+        <!--打印sql语句执行耗时 -->
+        <property name="plugins">
+            <array>
+                <bean id="sqlStatementInterceptor" class="com.shiro.utils.SqlCostInterceptor"/>
+            </array>
+        </property>
     </bean>
     <!-- 手动配置dao层 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

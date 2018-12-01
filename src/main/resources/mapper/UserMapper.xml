@@ -5,4 +5,8 @@
     <select id="selectUserByUsername" resultType="com.shiro.bean.User">
         SELECT * FROM user WHERE username=#{0};
     </select>
+    <!--查询所有用户-->
+    <select id="selectAllUser" resultType="com.shiro.bean.User">
+        SELECT * FROM user;
+    </select>
 </mapper>

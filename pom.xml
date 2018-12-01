@@ -166,6 +166,11 @@
             <artifactId>shiro-spring</artifactId>
             <version>${shiro.version}</version>
         </dependency>
+        <dependency>
+            <artifactId>ehcache-core</artifactId>
+            <groupId>net.sf.ehcache</groupId>
+            <version>2.5.0</version>
+        </dependency>
         <!-- shiro整合util方法需要 -->
         <dependency>
             <groupId>com.google.collections</groupId>
